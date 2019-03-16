@@ -17,7 +17,7 @@ public class Book {
     private List<Author> authors = new ArrayList<>();
     @Column(scale = 2, precision = 4)
     private BigDecimal rating;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.MERGE})
     private Publisher publisher;
     @Column(columnDefinition = "TEXT")
     private String description;

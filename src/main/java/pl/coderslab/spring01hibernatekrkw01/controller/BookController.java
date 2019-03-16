@@ -2,15 +2,15 @@ package pl.coderslab.spring01hibernatekrkw01.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.spring01hibernatekrkw01.dao.BookDao;
 import pl.coderslab.spring01hibernatekrkw01.dao.PublisherDao;
 import pl.coderslab.spring01hibernatekrkw01.entity.Author;
 import pl.coderslab.spring01hibernatekrkw01.entity.Book;
 import pl.coderslab.spring01hibernatekrkw01.entity.Publisher;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/book")
@@ -74,5 +74,32 @@ public class BookController {
         this.bookDao.save(b);
 
         return b.toString();
+    }
+
+    @GetMapping("/addForm")
+    public String addForm(Model m){
+        m.addAttribute("book", new Book());
+        return "book/addForm";
+    }
+
+    @PostMapping("/addForm")
+    public String addFormPost(@ModelAttribute Book book){
+        this.bookDao.save(book);
+        return "redirect:list";
+    }
+
+    @GetMapping("/list")
+    public String bookList(){
+        return "book/list";
+    }
+
+    @ModelAttribute("publishers")
+    private List<Publisher> publishers(){
+        return this.publisherDao.findAll();
+    }
+
+    @ModelAttribute("books")
+    private List<Book> books(){
+        return this.bookDao.findAll();
     }
 }
