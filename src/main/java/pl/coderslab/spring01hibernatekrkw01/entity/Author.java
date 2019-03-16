@@ -2,6 +2,8 @@ package pl.coderslab.spring01hibernatekrkw01.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "authors")
@@ -11,6 +13,8 @@ public class Author {
     private Long id;
     private String firstName;
     private String lastName;
+    @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private List<Book> books = new ArrayList<>();
 
     public Author() {
     }
@@ -42,6 +46,14 @@ public class Author {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 
     @Override
