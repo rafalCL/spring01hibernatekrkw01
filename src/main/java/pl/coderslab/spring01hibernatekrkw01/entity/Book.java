@@ -2,6 +2,8 @@ package pl.coderslab.spring01hibernatekrkw01.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -11,7 +13,8 @@ public class Book {
     private Long id;
     @Column(nullable = false)
     private String title;
-    private String author;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private List<Author> authors = new ArrayList<>();
     @Column(scale = 2, precision = 4)
     private BigDecimal rating;
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -23,9 +26,8 @@ public class Book {
 
     }
 
-    public Book(String title, String author) {
+    public Book(String title) {
         this.title = title;
-        this.author = author;
     }
 
     public Long getId() {
@@ -44,12 +46,12 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
+    public List<Author> getAuthors() {
+        return authors;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     public BigDecimal getRating() {
@@ -81,7 +83,6 @@ public class Book {
         return "Book{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
                 ", rating=" + rating +
                 ", publisher=" + publisher +
                 ", description='" + description + '\'' +
