@@ -19,7 +19,7 @@
         <%--@Column(columnDefinition = "TEXT")--%>
         <%--private String description;--%>
         <label for="title">Title <form:input type="text" path="title" id="title"></form:input></label>
-        <label for="publisher">Publisher <form:select path="publisher.id" id="publisher">
+        <label for="publisher">Publisher <form:select path="publisher" id="publisher">
             <form:options items="${publishers}"
                           itemLabel="name"
                           itemValue="id"></form:options>
