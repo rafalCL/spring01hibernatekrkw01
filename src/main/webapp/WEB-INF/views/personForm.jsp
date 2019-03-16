@@ -11,6 +11,11 @@
     <title>Person form</title>
 </head>
 <body>
-Welcome!
+    <form method="post">
+        <label for="login">Login <input type="text" name="login" id="login"></label>
+        <label for="password">Password <input type="password" name="password" id="password"></label>
+        <label for="email">Email <input type="email" name="email" id="email"></label>
+        <div><input type="submit"></div>
+    </form>
 </body>
 </html>
