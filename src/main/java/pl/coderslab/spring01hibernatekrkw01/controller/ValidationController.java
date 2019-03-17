@@ -9,7 +9,9 @@ import pl.coderslab.spring01hibernatekrkw01.dao.BookDao;
 import pl.coderslab.spring01hibernatekrkw01.dao.PublisherDao;
 import pl.coderslab.spring01hibernatekrkw01.entity.Author;
 import pl.coderslab.spring01hibernatekrkw01.entity.Book;
+import pl.coderslab.spring01hibernatekrkw01.entity.CmsArticle;
 import pl.coderslab.spring01hibernatekrkw01.entity.Publisher;
+import pl.coderslab.spring01hibernatekrkw01.validator.Draft;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -65,6 +67,86 @@ public class ValidationController {
             html = "Validation passed. No errors.";
         } else {
             for (ConstraintViolation<Author> c : valResult) {
+                html += "<div>" + c.getPropertyPath() + ": "
+                        + c.getMessage() + "</div>";
+            }
+        }
+
+        return html;
+    }
+
+    @GetMapping(value = "/group/default",
+            produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String groupValidationDefault() {
+        CmsArticle cmsArticle = new CmsArticle("title", null, null);
+
+        final Set<ConstraintViolation<CmsArticle>> valResult = validator.validate(cmsArticle);
+        String html = "";
+        if (valResult.isEmpty()) {
+            html = "Validation passed. No errors.";
+        } else {
+            for (ConstraintViolation<CmsArticle> c : valResult) {
+                html += "<div>" + c.getPropertyPath() + ": "
+                        + c.getMessage() + "</div>";
+            }
+        }
+
+        return html;
+    }
+
+    @GetMapping(value = "/group/draft",
+            produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String groupValidationDraft() {
+        CmsArticle cmsArticle = new CmsArticle("title", null, null);
+
+        final Set<ConstraintViolation<CmsArticle>> valResult = validator.validate(cmsArticle, Draft.class);
+        String html = "";
+        if (valResult.isEmpty()) {
+            html = "Validation passed. No errors.";
+        } else {
+            for (ConstraintViolation<CmsArticle> c : valResult) {
+                html += "<div>" + c.getPropertyPath() + ": "
+                        + c.getMessage() + "</div>";
+            }
+        }
+
+        return html;
+    }
+
+    @GetMapping(value = "/group/defaultempty",
+            produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String groupValidationDefaultEmpty() {
+        CmsArticle cmsArticle = new CmsArticle(null, null, null);
+
+        final Set<ConstraintViolation<CmsArticle>> valResult = validator.validate(cmsArticle);
+        String html = "";
+        if (valResult.isEmpty()) {
+            html = "Validation passed. No errors.";
+        } else {
+            for (ConstraintViolation<CmsArticle> c : valResult) {
+                html += "<div>" + c.getPropertyPath() + ": "
+                        + c.getMessage() + "</div>";
+            }
+        }
+
+        return html;
+    }
+
+    @GetMapping(value = "/group/draftempty",
+            produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String groupValidationDraftEmpty() {
+        CmsArticle cmsArticle = new CmsArticle(null, null, null);
+
+        final Set<ConstraintViolation<CmsArticle>> valResult = validator.validate(cmsArticle, Draft.class);
+        String html = "";
+        if (valResult.isEmpty()) {
+            html = "Validation passed. No errors.";
+        } else {
+            for (ConstraintViolation<CmsArticle> c : valResult) {
                 html += "<div>" + c.getPropertyPath() + ": "
                         + c.getMessage() + "</div>";
             }
