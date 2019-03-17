@@ -15,6 +15,7 @@ import pl.coderslab.spring01hibernatekrkw01.validator.Draft;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import javax.validation.groups.Default;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
@@ -115,7 +116,7 @@ public class ValidationController {
         return html;
     }
 
-    @GetMapping(value = "/group/defaultempty",
+    @GetMapping(value = "/group/emptydefault",
             produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String groupValidationDefaultEmpty() {
@@ -135,13 +136,33 @@ public class ValidationController {
         return html;
     }
 
-    @GetMapping(value = "/group/draftempty",
+    @GetMapping(value = "/group/emptydraft",
             produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String groupValidationDraftEmpty() {
         CmsArticle cmsArticle = new CmsArticle(null, null, null);
 
         final Set<ConstraintViolation<CmsArticle>> valResult = validator.validate(cmsArticle, Draft.class);
+        String html = "";
+        if (valResult.isEmpty()) {
+            html = "Validation passed. No errors.";
+        } else {
+            for (ConstraintViolation<CmsArticle> c : valResult) {
+                html += "<div>" + c.getPropertyPath() + ": "
+                        + c.getMessage() + "</div>";
+            }
+        }
+
+        return html;
+    }
+
+    @GetMapping(value = "/group/both",
+            produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String groupValidationBoth() {
+        CmsArticle cmsArticle = new CmsArticle(null, null, null);
+
+        final Set<ConstraintViolation<CmsArticle>> valResult = validator.validate(cmsArticle, Default.class, Draft.class);
         String html = "";
         if (valResult.isEmpty()) {
             html = "Validation passed. No errors.";
