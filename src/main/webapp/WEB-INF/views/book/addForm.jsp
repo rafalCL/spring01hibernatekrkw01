@@ -22,7 +22,11 @@
         </form:select></label> <br/>
         <label for="rating">Rating <form:input type="number" step="1" path="rating" id="rating"></form:input></label> <br/>
         <label for="description">Description <form:textarea path="description" id="description"></form:textarea></label> <br/>
+        <label for="pages">Pages <form:input type="number" step="1" path="pages" id="pages"></form:input></label> <br/>
+        <div><form:errors path="pages"></form:errors></div>
+
         <div><input type="submit"></div> <br/>
+        <div><form:errors path="*"></form:errors></div>
     </form:form>
 </body>
 </html>

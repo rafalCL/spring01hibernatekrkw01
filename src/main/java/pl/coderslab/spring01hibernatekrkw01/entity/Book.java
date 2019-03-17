@@ -2,6 +2,7 @@ package pl.coderslab.spring01hibernatekrkw01.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.pl.PESEL;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -16,7 +17,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Pole nie może być puste")
+    @NotBlank(message = "Pole title nie może być puste")
     @Size(min = 5)
     @Column(nullable = false)
     private String title;

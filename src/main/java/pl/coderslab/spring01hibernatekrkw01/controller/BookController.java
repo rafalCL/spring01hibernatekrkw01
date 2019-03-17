@@ -3,6 +3,7 @@ package pl.coderslab.spring01hibernatekrkw01.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.spring01hibernatekrkw01.dao.AuthorDao;
 import pl.coderslab.spring01hibernatekrkw01.dao.BookDao;
@@ -11,6 +12,7 @@ import pl.coderslab.spring01hibernatekrkw01.entity.Author;
 import pl.coderslab.spring01hibernatekrkw01.entity.Book;
 import pl.coderslab.spring01hibernatekrkw01.entity.Publisher;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -88,7 +90,10 @@ public class BookController {
     }
 
     @PostMapping("/addForm")
-    public String addFormPost(@ModelAttribute Book book){
+    public String addFormPost(@Valid Book book, BindingResult br){
+        if(br.hasErrors()){
+            return "book/addForm";
+        }
         this.bookDao.save(book);
         return "redirect:list";
     }
