@@ -13,6 +13,7 @@ import pl.coderslab.spring01hibernatekrkw01.entity.Publisher;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -115,12 +116,14 @@ public class BookController {
         return "book/list";
     }
 
-    @GetMapping(value = "/validation/{title}",
+    @GetMapping(value = "/validation/{title}/{rating}",
                 produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String validationTest(@PathVariable String title) {
+    public String validationTest(@PathVariable String title,
+                                 @PathVariable BigDecimal rating) {
         Book b = new Book();
         b.setTitle(title);
+        b.setRating(rating);
 
         final Set<ConstraintViolation<Book>> valResult = validator.validate(b);
         String html = "";

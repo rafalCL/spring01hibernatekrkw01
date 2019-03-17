@@ -1,9 +1,10 @@
 package pl.coderslab.spring01hibernatekrkw01.entity;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,25 @@ public class Book {
     @Size(min = 5)
     @Column(nullable = false)
     private String title;
+    @NotNull
+    @NotEmpty
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Author> authors = new ArrayList<>();
+
+    @DecimalMin("1.0")
+    @DecimalMax("10.0")
     @Column(scale = 2, precision = 4)
     private BigDecimal rating;
+    @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST})
     private Publisher publisher;
+
+    @Size(max = 600)
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Min(2)
+    private int pages;
 
     public Book(){
 
@@ -82,6 +94,14 @@ public class Book {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+
+    public void setPages(int pages) {
+        this.pages = pages;
     }
 
     @Override
