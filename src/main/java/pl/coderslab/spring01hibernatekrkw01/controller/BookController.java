@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.spring01hibernatekrkw01.dao.AuthorDao;
 import pl.coderslab.spring01hibernatekrkw01.dao.BookDao;
 import pl.coderslab.spring01hibernatekrkw01.dao.PublisherDao;
 import pl.coderslab.spring01hibernatekrkw01.entity.Author;
@@ -20,6 +21,9 @@ public class BookController {
 
     @Autowired
     private PublisherDao publisherDao;
+
+    @Autowired
+    private AuthorDao authorDao;
 
     @GetMapping("/saveHobbit")
     @ResponseBody
@@ -88,6 +92,18 @@ public class BookController {
         return "redirect:list";
     }
 
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable Long id, Model m){
+        m.addAttribute("book", bookDao.findById(id));
+        return "book/addForm";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editBookPost(@ModelAttribute Book book){
+        this.bookDao.save(book);
+        return "redirect:../list";
+    }
+
     @GetMapping("/list")
     public String bookList(){
         return "book/list";
@@ -101,5 +117,10 @@ public class BookController {
     @ModelAttribute("books")
     private List<Book> books(){
         return this.bookDao.findAll();
+    }
+
+    @ModelAttribute("authors")
+    private List<Author> authors(){
+        return this.authorDao.findAll();
     }
 }

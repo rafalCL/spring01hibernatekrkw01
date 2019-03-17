@@ -16,7 +16,7 @@ public class BookDao {
     private EntityManager em;
 
     public void save(Book e){
-        this.em.persist(e);
+        this.em.merge(e);
     }
 
     public Book findById(long id){

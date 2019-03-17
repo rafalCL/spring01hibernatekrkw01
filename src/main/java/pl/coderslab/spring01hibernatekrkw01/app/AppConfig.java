@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import pl.coderslab.spring01hibernatekrkw01.converter.StringPublisherConverter;
+import pl.coderslab.spring01hibernatekrkw01.converter.StringAuthorConverter;
 
 import javax.persistence.EntityManagerFactory;
 
@@ -42,13 +42,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    StringPublisherConverter stringPublisherConverter() {
-        return new StringPublisherConverter();
+    StringAuthorConverter stringAuthorConverter() {
+        return new StringAuthorConverter();
     }
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(stringPublisherConverter());
+        registry.addConverter(stringAuthorConverter());
 
     }
 }

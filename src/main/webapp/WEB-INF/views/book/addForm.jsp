@@ -9,23 +9,20 @@
 </head>
 <body>
     <form:form method="post" modelAttribute="book">
-    <%--private String title;--%>
-    <%--@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)--%>
-    <%--private List<Author> authors = new ArrayList<>();--%>
-        <%--@Column(scale = 2, precision = 4)--%>
-        <%--private BigDecimal rating;--%>
-        <%--@ManyToOne(cascade = CascadeType.PERSIST)--%>
-        <%--private Publisher publisher;--%>
-        <%--@Column(columnDefinition = "TEXT")--%>
-        <%--private String description;--%>
-        <label for="title">Title <form:input type="text" path="title" id="title"></form:input></label>
-        <label for="publisher">Publisher <form:select path="publisher" id="publisher">
+        <label for="title">Title <form:input type="text" path="title" id="title"></form:input></label> <br/>
+        <label for="authors">Authors <form:select multiple="true" path="authors" id="authors">
+            <form:options items="${authors}"
+                          itemLabel="fullName"
+                          itemValue="id"></form:options>
+        </form:select></label> <br/>
+        <label for="publisher">Publisher <form:select path="publisher.id" id="publisher">
             <form:options items="${publishers}"
                           itemLabel="name"
                           itemValue="id"></form:options>
-        </form:select></label>
-        <%--<label for="email">Email <form:input type="email" path="email" id="email"></form:input></label>--%>
-        <div><input type="submit"></div>
+        </form:select></label> <br/>
+        <label for="rating">Rating <form:input type="number" step="1" path="rating" id="rating"></form:input></label> <br/>
+        <label for="description">Description <form:textarea path="description" id="description"></form:textarea></label> <br/>
+        <div><input type="submit"></div> <br/>
     </form:form>
 </body>
 </html>
