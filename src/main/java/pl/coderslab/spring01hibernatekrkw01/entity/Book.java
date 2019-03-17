@@ -15,7 +15,7 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "Pole nie może być puste")
     @Size(min = 5)
     @Column(nullable = false)
     private String title;

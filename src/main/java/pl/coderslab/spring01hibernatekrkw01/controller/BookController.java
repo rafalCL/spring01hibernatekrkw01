@@ -115,7 +115,7 @@ public class BookController {
         return "book/list";
     }
 
-    @GetMapping(value = "/titlevalidation/{title}",
+    @GetMapping(value = "/validation/{title}",
                 produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String validationTest(@PathVariable String title) {
