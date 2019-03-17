@@ -47,4 +47,29 @@ public class ValidationController {
 
         return html;
     }
+
+    @GetMapping(value = "/author/{firstName}/{lastName}/{yob}",
+            produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String validationTest(@PathVariable String firstName,
+                                 @PathVariable String lastName,
+                                 @PathVariable int yob) {
+        Author a = new Author();
+        a.setFirstName(firstName);
+        a.setLastName(lastName);
+        a.setYearOfBirth(yob);
+
+        final Set<ConstraintViolation<Author>> valResult = validator.validate(a);
+        String html = "";
+        if (valResult.isEmpty()) {
+            html = "Validation passed. No errors.";
+        } else {
+            for (ConstraintViolation<Author> c : valResult) {
+                html += "<div>" + c.getPropertyPath() + ": "
+                        + c.getMessage() + "</div>";
+            }
+        }
+
+        return html;
+    }
 }

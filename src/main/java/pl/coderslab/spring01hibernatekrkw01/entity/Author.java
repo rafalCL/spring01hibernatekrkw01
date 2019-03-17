@@ -1,8 +1,11 @@
 package pl.coderslab.spring01hibernatekrkw01.entity;
 
+import pl.coderslab.spring01hibernatekrkw01.validator.IsOver18YO;
+import pl.coderslab.spring01hibernatekrkw01.validator.IsOverXYO;
+
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,6 +18,9 @@ public class Author {
     private String lastName;
     @ManyToMany(mappedBy = "authors", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Book> books = new ArrayList<>();
+//    @IsOver18YO
+    @IsOverXYO(16)
+    private int yearOfBirth;
 
     public Author() {
     }
@@ -59,6 +65,15 @@ public class Author {
     public String getFullName(){
         return this.firstName + " " + this.lastName;
     }
+
+    public int getYearOfBirth() {
+        return yearOfBirth;
+    }
+
+    public void setYearOfBirth(int yearOfBirth) {
+        this.yearOfBirth = yearOfBirth;
+    }
+
     @Override
     public String toString() {
         return "Author{" +
