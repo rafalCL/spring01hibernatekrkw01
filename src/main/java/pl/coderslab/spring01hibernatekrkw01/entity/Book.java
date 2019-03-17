@@ -21,7 +21,7 @@ public class Book {
     @Size(min = 5)
     @Column(nullable = false)
     private String title;
-    @NotNull
+
     @NotEmpty
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Author> authors = new ArrayList<>();
