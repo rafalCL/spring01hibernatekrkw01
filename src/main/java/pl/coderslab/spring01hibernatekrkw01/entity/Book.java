@@ -1,6 +1,9 @@
 package pl.coderslab.spring01hibernatekrkw01.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +14,9 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotBlank
+    @Size(min = 5)
     @Column(nullable = false)
     private String title;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)

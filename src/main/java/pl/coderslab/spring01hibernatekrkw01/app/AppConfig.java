@@ -7,6 +7,7 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import pl.coderslab.spring01hibernatekrkw01.converter.StringAuthorConverter;
 
 import javax.persistence.EntityManagerFactory;
+import javax.validation.Validator;
 
 @Configuration
 @EnableWebMvc
@@ -44,6 +46,11 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean
     StringAuthorConverter stringAuthorConverter() {
         return new StringAuthorConverter();
+    }
+
+    @Bean
+    public Validator validator() {
+        return new LocalValidatorFactoryBean();
     }
 
     @Override
