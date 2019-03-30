@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.spring01hibernatekrkw01.dao.AuthorDao;
 import pl.coderslab.spring01hibernatekrkw01.dao.BookDao;
 import pl.coderslab.spring01hibernatekrkw01.dao.PublisherDao;
-import pl.coderslab.spring01hibernatekrkw01.entity.Author;
-import pl.coderslab.spring01hibernatekrkw01.entity.Book;
-import pl.coderslab.spring01hibernatekrkw01.entity.Person;
-import pl.coderslab.spring01hibernatekrkw01.entity.Publisher;
+import pl.coderslab.spring01hibernatekrkw01.entity.*;
 import pl.coderslab.spring01hibernatekrkw01.repository.BookRepository;
+import pl.coderslab.spring01hibernatekrkw01.repository.CategoryRepository;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -32,6 +30,8 @@ public class BookController {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping("/saveHobbit")
     @ResponseBody
@@ -124,9 +124,29 @@ public class BookController {
     @ResponseBody
     public String testRepository(){
         final long count = bookRepository.count();
-        final List<Book> allPersons = bookRepository.findAll();
+        final List<Book> allBooks = bookRepository.findAll();
         String html = "<div>Liczba osób w bazie: "+count+"</div>";
-        for(Book p : allPersons){
+        for(Book p : allBooks){
+            html += "<div>"+p.toString()+"</div>";
+        }
+
+        html+="<div>By title</div>";
+        final List<Book> booksByTitle = bookRepository.findAllByTitle("zzzeee");
+        for(Book p : booksByTitle){
+            html += "<div>"+p.toString()+"</div>";
+        }
+
+
+        html+="<div>By category</div>";
+        Category cat = this.categoryRepository.findOne(1L);
+        final List<Book> booksByCategory = bookRepository.findAllByCategory(cat);
+        for(Book p : booksByCategory){
+            html += "<div>"+p.toString()+"</div>";
+        }
+
+        html+="<div>By category id</div>";
+        final List<Book> booksByCategoryId = bookRepository.findAllByCategoryId(1L);
+        for(Book p : booksByCategoryId){
             html += "<div>"+p.toString()+"</div>";
         }
 

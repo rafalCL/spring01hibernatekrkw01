@@ -20,7 +20,7 @@ public class Author {
     private List<Book> books = new ArrayList<>();
 //    @IsOver18YO
     @IsOverXYO(16)
-    private int yearOfBirth;
+    private Integer yearOfBirth;
 
     public Author() {
     }
