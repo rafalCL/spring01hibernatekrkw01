@@ -120,6 +120,16 @@ public class BookController {
         return "book/list";
     }
 
+    @GetMapping("/delbyid/{id}")
+    @ResponseBody
+    public String delById(@PathVariable Long id)
+    {
+        Book b = bookRepository.findOne(id);
+        bookRepository.delete(b);
+        return "book/list";
+    }
+
+
     @GetMapping(value = "/testrepository", produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String testRepository(){
@@ -152,6 +162,8 @@ public class BookController {
 
         return html;
     }
+
+
 
     @ModelAttribute("publishers")
     private List<Publisher> publishers(){
