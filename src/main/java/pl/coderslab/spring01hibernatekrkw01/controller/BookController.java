@@ -121,14 +121,23 @@ public class BookController {
     }
 
     @GetMapping("/delbyid/{id}")
-    @ResponseBody
     public String delById(@PathVariable Long id)
     {
         Book b = bookRepository.findOne(id);
-        bookRepository.delete(b);
+        bookRepository.deleteInRelation(b);
         return "book/list";
     }
 
+    @GetMapping("/delbyid2/{id}")
+    public String delById2(@PathVariable Long id)
+    {
+        Book b = bookRepository.findOne(id);
+        b.setCategory(null);
+        b.setPublisher(null);
+        b.getAuthors().clear();
+        bookRepository.delete(b);
+        return "book/list";
+    }
 
     @GetMapping(value = "/testrepository", produces = "text/html;charset=UTF-8")
     @ResponseBody

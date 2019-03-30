@@ -9,7 +9,8 @@ import pl.coderslab.spring01hibernatekrkw01.entity.Category;
 import java.util.List;
 
 public interface BookRepository
-                extends JpaRepository<Book, Long> {
+                extends JpaRepository<Book, Long>,
+                        DeleteInRelation {
     List<Book> findAllByTitle(String title);
     List<Book> findAllByCategory(Category category);
     List<Book> findAllByCategoryId(Long categoryId);
