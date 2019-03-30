@@ -6,12 +6,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.spring01hibernatekrkw01.dao.PersonDao;
 import pl.coderslab.spring01hibernatekrkw01.entity.Person;
+import pl.coderslab.spring01hibernatekrkw01.repository.PersonRepository;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/person")
 public class PersonController {
     @Autowired
     private PersonDao personDao;
+    @Autowired
+    private PersonRepository personRepository;
 
     @GetMapping("/form")
     public String personForm(){
@@ -43,5 +48,18 @@ public class PersonController {
         this.personDao.save(person);
 
         return "Zapisano: "+person.toString();
+    }
+
+    @GetMapping(value = "/testrepository", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String testRepository(){
+        final long count = personRepository.count();
+        final List<Person> allPersons = personRepository.findAll();
+        String html = "<div>Liczba osób w bazie: "+count+"</div>";
+        for(Person p : allPersons){
+            html += "<div>"+p.toString()+"</div>";
+        }
+
+        return html;
     }
 }

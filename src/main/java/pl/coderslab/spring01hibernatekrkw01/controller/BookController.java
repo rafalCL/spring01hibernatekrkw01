@@ -10,7 +10,9 @@ import pl.coderslab.spring01hibernatekrkw01.dao.BookDao;
 import pl.coderslab.spring01hibernatekrkw01.dao.PublisherDao;
 import pl.coderslab.spring01hibernatekrkw01.entity.Author;
 import pl.coderslab.spring01hibernatekrkw01.entity.Book;
+import pl.coderslab.spring01hibernatekrkw01.entity.Person;
 import pl.coderslab.spring01hibernatekrkw01.entity.Publisher;
+import pl.coderslab.spring01hibernatekrkw01.repository.BookRepository;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,6 +28,9 @@ public class BookController {
 
     @Autowired
     private AuthorDao authorDao;
+
+    @Autowired
+    private BookRepository bookRepository;
 
 
     @GetMapping("/saveHobbit")
@@ -113,6 +118,19 @@ public class BookController {
     @GetMapping("/list")
     public String bookList(){
         return "book/list";
+    }
+
+    @GetMapping(value = "/testrepository", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String testRepository(){
+        final long count = bookRepository.count();
+        final List<Book> allPersons = bookRepository.findAll();
+        String html = "<div>Liczba osób w bazie: "+count+"</div>";
+        for(Book p : allPersons){
+            html += "<div>"+p.toString()+"</div>";
+        }
+
+        return html;
     }
 
     @ModelAttribute("publishers")
