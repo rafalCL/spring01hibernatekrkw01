@@ -135,6 +135,7 @@ public class BookController {
         b.setCategory(null);
         b.setPublisher(null);
         b.getAuthors().clear();
+        bookRepository.save(b);
         bookRepository.delete(b);
         return "book/list";
     }

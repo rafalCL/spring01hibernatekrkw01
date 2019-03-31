@@ -8,7 +8,7 @@
 <div>Książki:</div>
 <div>
     <c:forEach items="${books}" var="book">
-        <div><c:out value="${book.title}, ${book.publisher.name}"></c:out></div>
+        <div><c:out value="${book.id}, ${book.title}, ${book.publisher.name}"></c:out></div>
     </c:forEach>
 </div>
 </body>

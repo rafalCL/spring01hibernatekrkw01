@@ -17,9 +17,9 @@ public class BookRepositoryImpl implements DeleteInRelation {
         book.setCategory(null);
         book.setAuthors(null);
         this.em.merge(book);
-        this.em.getTransaction().commit();
+        this.em.flush();
+        this.em.clear();
 
-        this.em.getTransaction().begin();
         this.em.remove(
                 this.em.contains(book) ? book
                               : this.em.merge(book));
